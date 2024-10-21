@@ -19,6 +19,7 @@ namespace arguments
     bool count_lines = false;
     bool count_words = false;
     bool count_chars = false;
+    bool no_args = false;
 
      const char *usage = "Usage: ccwc [OPTION]... [FILE]...\n"
                         "Count characters, words, and lines in a file.\n"
@@ -40,6 +41,14 @@ namespace arguments
         if (args.empty()) // TODO: and there is no pipe in the input
         {
             arguments::showUsage();
+            return;
+        }
+
+        // If arg[0] is not a flag, then it is a filename, boolean no_args is set to true
+        if (args[0][0] != '-')
+        {
+            arguments::no_args = true;
+            arguments::filename = args[0];
             return;
         }
 
@@ -74,4 +83,5 @@ namespace arguments
     {
         std::cout << arguments::usage << std::endl;
     }
+    
 }

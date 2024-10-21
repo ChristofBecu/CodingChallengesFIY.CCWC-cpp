@@ -13,6 +13,7 @@ namespace arguments {
     extern bool count_lines;
     extern bool count_words;
     extern bool count_chars;
+    extern bool no_args;
 
     extern const char *usage;
     extern std::string filename;

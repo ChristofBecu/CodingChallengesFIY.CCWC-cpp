@@ -27,11 +27,13 @@ namespace file
     };
 
     int countBytes() {
+        inputFile.clear();
         file::inputFile.seekg(0, std::ios::end);
         return file::inputFile.tellg();
     };
 
     int countLines() {
+        inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
         std::wstring line;
@@ -43,6 +45,7 @@ namespace file
     }
 
     int countWords(){
+        inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
         std::wstring word;
@@ -54,6 +57,7 @@ namespace file
     }
 
     int countChars(){
+        inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
         wchar_t c;
