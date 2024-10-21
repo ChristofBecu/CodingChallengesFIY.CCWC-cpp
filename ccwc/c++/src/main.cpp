@@ -25,6 +25,10 @@ int main(int argc, char *argv[])
         std::cout << "\t" << file::countWords() << " " << arguments::filename << std::endl;
     }
 
+    if (arguments::count_chars) {
+        std::cout << "\t" << file::countChars() << " " << arguments::filename << std::endl;
+    }
+
     file::closeFile();
 
     return 0;

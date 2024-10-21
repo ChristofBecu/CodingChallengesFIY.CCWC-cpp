@@ -47,4 +47,15 @@ namespace file
         }
         return count;
     }
+
+    int countChars(){
+        file::inputFile.seekg(0, std::ios::beg);
+        int count = 0;
+        char c;
+        while (file::inputFile.get(c))
+        {
+            count++;
+        }
+        return count;
+    }
 }

@@ -7,10 +7,12 @@ namespace arguments {
     extern const char* ARG_COUNT_BYTES;
     extern const char* ARG_COUNT_LINES;
     extern const char* ARG_COUNT_WORDS;
+    extern const char* ARG_COUNT_CHARS;
 
     extern bool count_bytes;
     extern bool count_lines;
     extern bool count_words;
+    extern bool count_chars;
 
     extern const char *usage;
     extern std::string filename;

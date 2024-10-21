@@ -11,6 +11,7 @@ namespace file
     int countBytes();
     int countLines();
     int countWords();
+    int countChars();
 }
 
 
