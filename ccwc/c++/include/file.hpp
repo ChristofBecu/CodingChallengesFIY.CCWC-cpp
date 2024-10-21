@@ -2,11 +2,12 @@
 #define FILE_H
 
 #include <string>
+#include <fstream>
 
 namespace file
 {
-    extern std::fstream inputFile;
-    void openFile(std::string filename);
+    extern std::wifstream inputFile;
+    void openFile(std::string& filename);
     void closeFile();
     int countBytes();
     int countLines();

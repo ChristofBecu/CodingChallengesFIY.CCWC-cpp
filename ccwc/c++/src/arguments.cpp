@@ -20,11 +20,14 @@ namespace arguments
     bool count_words = false;
     bool count_chars = false;
 
-    const char *usage = "Usage: ccwc [OPTION]... [FILE]...\n"
+     const char *usage = "Usage: ccwc [OPTION]... [FILE]...\n"
                         "Count characters, words, and lines in a file.\n"
                         "\n"
                         "Options:\n"
                         "  -c\t\tCount bytes\n"
+                        "  -l\t\tCount lines\n"
+                        "  -w\t\tCount words\n"
+                        "  -m\t\tCount characters\n"
                         "\n"
                         "With no FILE, or when FILE is -, read standard input.\n";
 
@@ -32,8 +35,6 @@ namespace arguments
 
     void parse(int argc, char *argv[])
     {
-        // std::copy(argv, argv + argc, std::ostream_iterator<char *>(std::cout, "\n"));
-
         const std::vector<std::string_view> args(argv + 1, argv + argc);
 
         if (args.empty()) // TODO: and there is no pipe in the input

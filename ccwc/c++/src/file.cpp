@@ -3,18 +3,23 @@
 #include <iterator>
 #include <string.h>
 #include <fstream>
+#include <locale>
+#include <codecvt>
 
 namespace file
 {
-    std::fstream inputFile;
+    std::wifstream inputFile;
 
-    void openFile(std::string filename) {
+    void openFile(std::string& filename) {
         file::inputFile.open(filename, std::ios::in);
 
         if (!inputFile.is_open())
         {
             std::cout << "File not found : " << filename << std::endl;
+            return;
         }
+        // Use UTF-8 encoding
+        inputFile.imbue(std::locale(inputFile.getloc(), new std::codecvt_utf8<wchar_t>));
     };
 
     void closeFile() {
@@ -29,7 +34,7 @@ namespace file
     int countLines() {
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
-        std::string line;
+        std::wstring line;
         while (std::getline(file::inputFile, line))
         {
             count++;
@@ -40,7 +45,7 @@ namespace file
     int countWords(){
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
-        std::string word;
+        std::wstring word;
         while (file::inputFile >> word)
         {
             count++;
@@ -51,7 +56,7 @@ namespace file
     int countChars(){
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
-        char c;
+        wchar_t c;
         while (file::inputFile.get(c))
         {
             count++;
