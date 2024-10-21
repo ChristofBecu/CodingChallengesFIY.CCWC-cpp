@@ -25,4 +25,15 @@ namespace file
         file::inputFile.seekg(0, std::ios::end);
         return file::inputFile.tellg();
     };
+
+    int countLines() {
+        file::inputFile.seekg(0, std::ios::beg);
+        int count = 0;
+        std::string line;
+        while (std::getline(file::inputFile, line))
+        {
+            count++;
+        }
+        return count;
+    }
 }

@@ -9,6 +9,7 @@ namespace file
     void openFile(std::string filename);
     void closeFile();
     int countBytes();
+    int countLines();
 }
 
 

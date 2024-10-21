@@ -17,6 +17,10 @@ int main(int argc, char *argv[])
         std::cout << "\t" << file::countBytes() << " " << arguments::filename << std::endl;
     }
 
+    if (arguments::count_lines) {
+        std::cout << "\t" << file::countLines() << " " << arguments::filename << std::endl;
+    }
+
     file::closeFile();
 
     return 0;
