@@ -21,6 +21,10 @@ int main(int argc, char *argv[])
         std::cout << "\t" << file::countLines() << " " << arguments::filename << std::endl;
     }
 
+    if (arguments::count_words) {
+        std::cout << "\t" << file::countWords() << " " << arguments::filename << std::endl;
+    }
+
     file::closeFile();
 
     return 0;

@@ -36,4 +36,15 @@ namespace file
         }
         return count;
     }
+
+    int countWords(){
+        file::inputFile.seekg(0, std::ios::beg);
+        int count = 0;
+        std::string word;
+        while (file::inputFile >> word)
+        {
+            count++;
+        }
+        return count;
+    }
 }

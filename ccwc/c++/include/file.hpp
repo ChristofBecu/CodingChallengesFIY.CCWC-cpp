@@ -10,6 +10,7 @@ namespace file
     void closeFile();
     int countBytes();
     int countLines();
+    int countWords();
 }
 
 

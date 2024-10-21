@@ -12,9 +12,11 @@ namespace arguments
 {
     const char *ARG_COUNT_BYTES = "-c";
     const char *ARG_COUNT_LINES = "-l";
+    const char *ARG_COUNT_WORDS = "-w";
 
     bool count_bytes = false;
     bool count_lines = false;
+    bool count_words = false;
 
     const char *usage = "Usage: ccwc [OPTION]... [FILE]...\n"
                         "Count characters, words, and lines in a file.\n"
@@ -46,6 +48,11 @@ namespace arguments
         if (args[0] == arguments::ARG_COUNT_LINES)
         {
             arguments::count_lines = true;
+        }
+
+        if (args[0] == arguments::ARG_COUNT_WORDS)
+        {
+            arguments::count_words = true;
         }
 
         if (args.size() > 1)
