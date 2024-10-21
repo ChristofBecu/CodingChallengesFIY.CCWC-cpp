@@ -1,3 +1,5 @@
-# Build Your Own wc Tool
+# Build Your Own wc Tool (c++)
 
-## test
+## Build executable
+
+- make -f Makefile
