@@ -31,7 +31,7 @@ else()
 endif()
 
 # Create the output directory
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${OUTPUT_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${OUTPUT_DIR})
 
 # Add executable target
 add_executable(${MAIN_EXE} ${SOURCES})
