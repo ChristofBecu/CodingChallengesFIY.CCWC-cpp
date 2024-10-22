@@ -1,4 +1,7 @@
 # Build Your Own wc Tool (c++)
+This challenge is to build your own version of the Unix command line tool wc!
+[Instructions](https://codingchallenges.fyi/challenges/challenge-wc)
+
 
 ## Build executable
 
@@ -31,3 +34,27 @@ input_file.close();
 input_file.seekg(0, std::ios::end);
 std::cout << "File size: " << input_file.tellg() << " bytes" << std::endl;
 ```
+
+### open file in UTF-8 encoding
+- as current locale did not recognize multibyte characters when using the -c option, reading in the file had to be in UTF-8 
+
+```cpp
+std::wifstream inputFile;
+
+void openFile(std::string& filename) {
+    file::inputFile.open(filename, std::ios::in);
+
+    if (!inputFile.is_open())
+    {
+        std::cout << "File not found : " << filename << std::endl;
+        return;
+    }
+    // Use UTF-8 encoding
+    inputFile.imbue(std::locale(inputFile.getloc(), new std::codecvt_utf8<wchar_t>));
+};
+
+```
+
+### Converting build process
+- Convert MAKEFILE to CMakeLists.txt
+- Write build scripts in bash and batch
