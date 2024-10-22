@@ -2,10 +2,12 @@
 
 ## Build executable
 
-- make -f Makefile
+- make sure you have cmake installed
+- linux/mac: run build.sh
+- windows: run build.bat
 
 ## Usage
-- ccwc -c data/test.txt
+- ccwc [OPTION]... [FILE]...
 
 ## Things learned
 

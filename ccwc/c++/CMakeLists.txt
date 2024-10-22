@@ -1,0 +1,57 @@
+# Minimum CMake version required
+cmake_minimum_required(VERSION 3.10)
+
+# Project name
+project(CCWC)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Compiler options equivalent to CXXFLAGS
+add_compile_options(-Wall -Wextra -g)
+
+# Define source and output directories
+set(SRC_DIR "src")
+set(INCLUDE_DIR "include")
+set(OUTPUT_DIR "output")
+set(LIB_DIR "lib")
+
+# Include directories (equivalent to INCLUDES in Makefile)
+include_directories(${INCLUDE_DIR})
+
+# Find all the source files (equivalent to SOURCES in Makefile)
+file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
+
+# Define the executable output (handle Windows vs non-Windows)
+if(WIN32)
+    set(MAIN_EXE "ccwc.exe")
+else()
+    set(MAIN_EXE "ccwc")
+endif()
+
+# Create the output directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${OUTPUT_DIR})
+
+# Add executable target
+add_executable(${MAIN_EXE} ${SOURCES})
+
+# Set libraries path (equivalent to LIBS in Makefile)
+link_directories(${LIB_DIR})
+# Link any required libraries (you can specify libraries here as needed)
+# target_link_libraries(${MAIN_EXE} <your_libraries>)
+
+# Custom clean target for extra cleanup (similar to `clean` in Makefile)
+add_custom_target(clean-all
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${MAIN_EXE}
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/${SRC_DIR}/*.o
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/${SRC_DIR}/*.d
+    COMMAND ${CMAKE_COMMAND} -E echo "Cleanup complete!"
+)
+
+# Add a "run" target to run the executable (like `run` in Makefile)
+add_custom_target(run
+    COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${MAIN_EXE}
+    DEPENDS ${MAIN_EXE}
+    COMMENT "Running the program..."
+)
