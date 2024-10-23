@@ -6,8 +6,10 @@ This challenge is to build your own version of the Unix command line tool wc!
 ## Build executable
 
 - make sure you have cmake installed
-- linux/mac: run build.sh
-- windows: run build.bat
+
+``` cmake -S. -Bbuild ```
+
+``` cmake --build build ```
 
 ## Usage
 - ccwc [OPTION]... [FILE]...
@@ -56,5 +58,7 @@ void openFile(std::string& filename) {
 ```
 
 ### Converting build process
-- Convert MAKEFILE to CMakeLists.txt
-- Write build scripts in bash and batch
+- ~~Convert MAKEFILE to CMakeLists.txt (chatgpt)~~
+- ~~Write build scripts in bash and batch~~
+- rewrite CMakeLists.txt manually, with the help of [CMake Workshop](https://enccs.github.io/cmake-workshop/)
+
