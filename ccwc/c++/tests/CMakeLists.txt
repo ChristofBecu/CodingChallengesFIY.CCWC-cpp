@@ -12,10 +12,19 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/test_data" DESTINATION "${CMAKE_RUNTIME_O
 add_executable(countBytes_test "${CMAKE_CURRENT_SOURCE_DIR}/countBytes_test.cpp")
 target_link_libraries(countBytes_test PRIVATE file)
 
+add_executable(countLines_test "${CMAKE_CURRENT_SOURCE_DIR}/countLines_test.cpp")
+target_link_libraries(countLines_test PRIVATE file)
+
 enable_testing()
 
 add_test(
   NAME countBytes_test
   COMMAND $<TARGET_FILE:countBytes_test>
+  WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
+
+add_test(
+  NAME countLines_test
+  COMMAND $<TARGET_FILE:countLines_test>
   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
