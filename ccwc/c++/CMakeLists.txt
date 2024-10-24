@@ -10,6 +10,7 @@ project(ccwc
 set(SRC_DIR "src")
 set(INCLUDE_DIR "include")
 set(OUTPUT_DIR "output")
+set(TEST_DIR "tests")
 
 include_directories(${INCLUDE_DIR})
 
@@ -17,14 +18,15 @@ file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${OUTPUT_DIR})
 
-if(WIN32)
-    set(MAIN_EXE "${PROJECT_NAME}.exe")
-else()
-    set(MAIN_EXE "${PROJECT_NAME}")
-endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${OUTPUT_DIR})
+set(MAIN_EXE "${PROJECT_NAME}")
+
 
 add_executable(${MAIN_EXE} ${SOURCES})
+
+# TESTS
+
+add_subdirectory(${TEST_DIR})
+
 
 
