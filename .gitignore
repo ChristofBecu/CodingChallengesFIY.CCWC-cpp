@@ -48,3 +48,6 @@ output/
 
 # Github Copilot Workspace directory
 .idea
+
+# VSCodeCounter directory
+.VSCodeCounter

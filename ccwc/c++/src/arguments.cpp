@@ -7,81 +7,101 @@
 #include <iterator>
 #include <string.h>
 #include <fstream>
+#include <unordered_map>
 
 namespace arguments
 {
-    const char *ARG_COUNT_BYTES = "-c";
-    const char *ARG_COUNT_LINES = "-l";
-    const char *ARG_COUNT_WORDS = "-w";
-    const char *ARG_COUNT_CHARS = "-m";
+    enum Option
+    {
+        COUNT_BYTES,
+        COUNT_LINES,
+        COUNT_WORDS,
+        COUNT_CHARS
+    };
 
-    bool count_bytes = false;
+    const std::unordered_map<std::string, Option> option_map = {
+        {"-c", COUNT_BYTES},
+        {"--bytes", COUNT_BYTES},
+        {"-l", COUNT_LINES},
+        {"--lines", COUNT_LINES},
+        {"-w", COUNT_WORDS},
+        {"--words", COUNT_WORDS},
+        {"-m", COUNT_CHARS},
+        {"--chars", COUNT_CHARS}
+    };
+
+    bool isCountBytes = false;
     bool count_lines = false;
     bool count_words = false;
     bool count_chars = false;
     bool no_args = false;
 
-     const char *usage = "Usage: ccwc [OPTION]... [FILE]...\n"
-                        "Count characters, words, and lines in a file.\n"
-                        "\n"
-                        "Options:\n"
-                        "  -c\t\tCount bytes\n"
-                        "  -l\t\tCount lines\n"
-                        "  -w\t\tCount words\n"
-                        "  -m\t\tCount characters\n"
-                        "\n"
-                        "With no FILE, or when FILE is -, read standard input.\n";
+    std::string usage = "Usage: ccwc [OPTION]... [FILES]...\n"
+                    "Count characters, words, and lines in given files.\n"
+                    "\n"
+                    "Options:\n"
+                    "\t-c\t\tCount bytes\n"
+                    "\t-l\t\tCount lines\n"
+                    "\t-w\t\tCount words\n"
+                    "\t-m\t\tCount characters\n"
+                    "\n"
+                    "With no FILE, or when FILE is -, read standard input.\n";
 
     std::string filename;
-
-    void parse(int argc, char *argv[])
-    {
-        const std::vector<std::string_view> args(argv + 1, argv + argc);
-
-        if (args.empty()) // TODO: and there is no pipe in the input
-        {
-            arguments::showUsage();
-            return;
-        }
-
-        // If arg[0] is not a flag, then it is a filename, boolean no_args is set to true
-        if (args[0][0] != '-')
-        {
-            arguments::no_args = true;
-            arguments::filename = args[0];
-            return;
-        }
-
-        if (args[0] == arguments::ARG_COUNT_BYTES)
-        {
-            arguments::count_bytes = true;
-        }
-
-        if (args[0] == arguments::ARG_COUNT_LINES)
-        {
-            arguments::count_lines = true;
-        }
-
-        if (args[0] == arguments::ARG_COUNT_WORDS)
-        {
-            arguments::count_words = true;
-        }
-
-        if (args[0] == arguments::ARG_COUNT_CHARS)
-        {
-            arguments::count_chars = true;
-        }
-
-        if (args.size() > 1)
-        {
-            arguments::filename = args[1];
-        }
-
-    }
 
     void showUsage()
     {
         std::cout << arguments::usage << std::endl;
+    }
+
+    void parseArguments(int argc, char *argv[], std::vector<std::string> &files)
+    {
+        for (int i = 1; i < argc; ++i)
+        {
+            int optionCount = 0;
+            auto it = option_map.find(argv[i]);
+            if (it != option_map.end())
+            {
+                switch (it->second)
+                {
+                    case COUNT_BYTES:
+                        isCountBytes = true;
+                        optionCount++;
+                        break;
+                    case COUNT_LINES:
+                        count_lines = true;
+                        optionCount++;
+                        break;
+                    case COUNT_WORDS:
+                        count_words = true;
+                        optionCount++;
+                        break;
+                    case COUNT_CHARS:
+                        count_chars = true;
+                        optionCount++;
+                        break;
+                }
+            }
+            else if (argv[i][0] != '-')
+            {
+                files.push_back(argv[i]);
+            }
+            else
+            {
+                std::cerr << "Unknown option: " << argv[i] << "\n" << usage;
+                exit(EXIT_FAILURE);
+            }
+            if (optionCount == 0)
+            {
+               no_args = true;
+            }
+        }
+
+        if (files.empty())
+        {
+            std::cerr << "No files provided.\n" << usage;
+            exit(EXIT_FAILURE);
+        }
     }
     
 }
