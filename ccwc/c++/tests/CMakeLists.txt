@@ -1,3 +1,5 @@
+
+
 set(SRC_DIR "../src")
 set(OUTPUT_DIR "output/tests")
 
@@ -15,7 +17,6 @@ add_executable(file_test
 )
 target_link_libraries(file_test PRIVATE file GTest::GTest GTest::Main)
 
-enable_testing()
 
 add_test(
   NAME file_test

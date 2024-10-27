@@ -1,3 +1,5 @@
+option(BUILD_TESTS "build tests" OFF)
+
 cmake_minimum_required(VERSION 3.18)
 
 project(ccwc
@@ -11,6 +13,8 @@ set(SRC_DIR "src")
 set(INCLUDE_DIR "include")
 set(OUTPUT_DIR "output")
 set(TEST_DIR "tests")
+
+
 
 include_directories(${INCLUDE_DIR})
 
@@ -26,7 +30,10 @@ add_executable(${MAIN_EXE} ${SOURCES})
 
 # TESTS
 
-add_subdirectory(${TEST_DIR})
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(${TEST_DIR})
+endif()
 
 
 
