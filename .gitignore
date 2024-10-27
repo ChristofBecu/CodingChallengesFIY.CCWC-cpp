@@ -45,3 +45,6 @@ build/
 lib/
 dist/
 output/
+
+# Github Copilot Workspace directory
+.idea

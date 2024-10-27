@@ -9,10 +9,11 @@ find_package(GTest REQUIRED)
 
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/test_data" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
 
-
-add_executable(file_test "${CMAKE_CURRENT_SOURCE_DIR}/file_test.cpp")
+add_executable(file_test 
+    "${CMAKE_CURRENT_SOURCE_DIR}/fileTest.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/globalTestEnvironment.cpp"
+)
 target_link_libraries(file_test PRIVATE file GTest::GTest GTest::Main)
-
 
 enable_testing()
 

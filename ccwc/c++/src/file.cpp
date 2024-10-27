@@ -5,34 +5,48 @@
 #include <fstream>
 #include <locale>
 #include <codecvt>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 namespace file
 {
     std::wifstream inputFile;
 
-    void openFile(std::string& filename) {
-        file::inputFile.open(filename, std::ios::in);
-
-        if (!inputFile.is_open())
+    void openFile(std::string &filename)
+    {
+        try
         {
-            std::cout << "File not found : " << filename << std::endl;
-            return;
+            // check if file exists
+            if (!fs::exists(filename)) {
+                throw std::runtime_error("Error: File not found: " + filename);
+            }
+
+            file::inputFile.open(filename, std::ios::in);
+           
+            // Use UTF-8 encoding
+            inputFile.imbue(std::locale(inputFile.getloc(), new std::codecvt_utf8<wchar_t>));
         }
-        // Use UTF-8 encoding
-        inputFile.imbue(std::locale(inputFile.getloc(), new std::codecvt_utf8<wchar_t>));
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
     };
 
-    void closeFile() {
+    void closeFile()
+    {
         file::inputFile.close();
     };
 
-    int countBytes() {
+    int countBytes()
+    {
         inputFile.clear();
         file::inputFile.seekg(0, std::ios::end);
         return file::inputFile.tellg();
     };
 
-    int countLines() {
+    int countLines()
+    {
         inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
@@ -44,7 +58,8 @@ namespace file
         return count;
     }
 
-    int countWords(){
+    int countWords()
+    {
         inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
@@ -56,7 +71,8 @@ namespace file
         return count;
     }
 
-    int countChars(){
+    int countChars()
+    {
         inputFile.clear();
         file::inputFile.seekg(0, std::ios::beg);
         int count = 0;
