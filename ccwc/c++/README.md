@@ -5,14 +5,23 @@ This challenge is to build your own version of the Unix command line tool wc!
 
 ## Build executable
 
-- make sure you have cmake installed
+Running one following commands in a terminal, will show a help screen on how to pass arguments to the scripts
 
-``` cmake -S. -Bbuild ```
-
-``` cmake --build build ```
+- Cross platform
+``` python build.py ```
+- Linux
+``` ./build.sh ```
+- Windows
+``` ./build.bat ```
 
 ## Usage
-- ccwc [OPTION]... [FILE]...
+
+```ccwc [OPTIONS]... [FILES]...```
+
+ccwc can take multiple options and multiple files.
+
+
+
 
 ## Things learned
 
@@ -57,8 +66,15 @@ void openFile(std::string& filename) {
 
 ```
 
-### Converting build process
-- ~~Convert MAKEFILE to CMakeLists.txt (chatgpt)~~
-- ~~Write build scripts in bash and batch~~
+### build process
+- Convert generated MAKEFILE to CMakeLists.txt
+- Write simple build scripts in bash and batch
 - rewrite CMakeLists.txt manually, with the help of [CMake Workshop](https://enccs.github.io/cmake-workshop/)
+- rewrite bash file to automate the build process
+- create a python script to automate the build process
+
+### Add unit tests
+- Simple tests with ctest
+- Rewrite unit tests using Google Test
+- Streamline the global test environment
 
