@@ -56,7 +56,7 @@ namespace arguments
 
     void parseArguments(int argc, char *argv[], std::vector<std::string> &files)
     {
-            int optionCount = 0;
+        int optionCount = 0;
         for (int i = 1; i < argc; ++i)
         {
             auto it = option_map.find(argv[i]);
@@ -94,7 +94,6 @@ namespace arguments
         }
         if (optionCount == 0)
         {
-            std::cout << "No options provided. Defaulting to all options.\n";
             isNoOptions = true;
         }
 
