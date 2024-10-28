@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
         arguments::filename = file;
         file::openFile(arguments::filename);
 
-        // if there is a error opening the file, skip to the next file
         if (!file::inputFile.is_open())
         {
             continue;
@@ -35,22 +34,22 @@ int main(int argc, char *argv[])
             std::cout << "\t" << file::countBytes() << " " << arguments::filename << std::endl;
         }
 
-        if (arguments::count_lines)
+        if (arguments::isCountLines)
         {
             std::cout << "\t" << file::countLines() << " " << arguments::filename << std::endl;
         }
 
-        if (arguments::count_words)
+        if (arguments::isCountWords)
         {
             std::cout << "\t" << file::countWords() << " " << arguments::filename << std::endl;
         }
 
-        if (arguments::count_chars)
+        if (arguments::isCountchars)
         {
             std::cout << "\t" << file::countChars() << " " << arguments::filename << std::endl;
         }
 
-        if (arguments::no_args)
+        if (arguments::isNoOptions)
         {
             std::cout << "\t" << file::countLines() << "\t" << file::countWords() << "\t" << file::countBytes() << "\t" << arguments::filename << std::endl;
         }

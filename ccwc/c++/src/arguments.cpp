@@ -31,10 +31,10 @@ namespace arguments
     };
 
     bool isCountBytes = false;
-    bool count_lines = false;
-    bool count_words = false;
-    bool count_chars = false;
-    bool no_args = false;
+    bool isCountLines = false;
+    bool isCountWords = false;
+    bool isCountchars = false;
+    bool isNoOptions = false;
 
     std::string usage = "Usage: ccwc [OPTION]... [FILES]...\n"
                     "Count characters, words, and lines in given files.\n"
@@ -56,9 +56,9 @@ namespace arguments
 
     void parseArguments(int argc, char *argv[], std::vector<std::string> &files)
     {
+            int optionCount = 0;
         for (int i = 1; i < argc; ++i)
         {
-            int optionCount = 0;
             auto it = option_map.find(argv[i]);
             if (it != option_map.end())
             {
@@ -69,15 +69,15 @@ namespace arguments
                         optionCount++;
                         break;
                     case COUNT_LINES:
-                        count_lines = true;
+                        isCountLines = true;
                         optionCount++;
                         break;
                     case COUNT_WORDS:
-                        count_words = true;
+                        isCountWords = true;
                         optionCount++;
                         break;
                     case COUNT_CHARS:
-                        count_chars = true;
+                        isCountchars = true;
                         optionCount++;
                         break;
                 }
@@ -91,10 +91,11 @@ namespace arguments
                 std::cerr << "Unknown option: " << argv[i] << "\n" << usage;
                 exit(EXIT_FAILURE);
             }
-            if (optionCount == 0)
-            {
-               no_args = true;
-            }
+        }
+        if (optionCount == 0)
+        {
+            std::cout << "No options provided. Defaulting to all options.\n";
+            isNoOptions = true;
         }
 
         if (files.empty())
