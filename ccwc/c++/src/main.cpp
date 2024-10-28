@@ -3,6 +3,7 @@
 #include <iterator>
 #include <string.h>
 #include <fstream>
+#include <sstream>
 
 #include "arguments.hpp"
 #include "file.hpp"
@@ -12,6 +13,13 @@ int main(int argc, char *argv[])
 {
     std::vector<std::string> files;
     arguments::parseArguments(argc, argv, files);
+
+    int totalLines = 0;
+    int totalWords = 0;
+    int totalBytes = 0;
+    int totalChars = 0;
+
+    std::ostringstream output;
 
     if (files.size() == 0)
     {
@@ -30,33 +38,62 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        if (arguments::isCountBytes)
-        {
-            std::cout << "\t" << file::countBytes() << " " << arguments::filename << std::endl;
-        }
+        int lines = 0, words = 0, bytes = 0, chars = 0;
 
         if (arguments::count_lines)
         {
-            std::cout << "\t" << file::countLines() << " " << arguments::filename << std::endl;
+            lines = file::countLines();
+            totalLines += lines;
+            output << "\t" << lines;
         }
 
-        if (arguments::count_words)
+        else if (arguments::count_words)
         {
-            std::cout << "\t" << file::countWords() << " " << arguments::filename << std::endl;
+            words = file::countWords();
+            totalWords += words;
+            output << "\t" << words;
         }
 
-        if (arguments::count_chars)
+        else if (arguments::isCountBytes)
         {
-            std::cout << "\t" << file::countChars() << " " << arguments::filename << std::endl;
+            bytes = file::countBytes();
+            totalBytes += bytes;
+            output << "\t" << bytes;
         }
 
-        if (arguments::no_args)
+        else if (arguments::count_chars)
         {
-            std::cout << "\t" << file::countLines() << "\t" << file::countWords() << "\t" << file::countBytes() << "\t" << arguments::filename << std::endl;
+            chars = file::countChars();
+            totalChars += chars;
+            output << "\t" << chars;
         }
+
+        else if (arguments::no_args)
+        {
+
+            lines = file::countLines();
+            words = file::countWords();
+            chars = file::countChars();
+            
+            totalLines += lines;
+            totalChars += chars;
+            totalWords += words;
+
+            output << "\t" << lines << "\t" << words << "\t" << chars;
+        }
+
+        output << "\t" << arguments::filename << "\n";
 
         file::closeFile();
     }
+
+    if (files.size() > 1)
+    {
+        output << "\t" << totalLines << "\t" << totalWords << "\t" << totalChars << "\ttotal\n";
+    }
+
+    std::cout << output.str();
+    
 
     return 0;
 }
