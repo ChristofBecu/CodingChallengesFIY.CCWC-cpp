@@ -24,6 +24,12 @@ int main(int argc, char *argv[])
         arguments::filename = file;
         file::openFile(arguments::filename);
 
+        // if there is a error opening the file, skip to the next file
+        if (!file::inputFile.is_open())
+        {
+            continue;
+        }
+
         if (arguments::isCountBytes)
         {
             std::cout << "\t" << file::countBytes() << " " << arguments::filename << std::endl;
