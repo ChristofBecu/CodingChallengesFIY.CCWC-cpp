@@ -1,7 +1,10 @@
 # Build Your Own wc Tool (c++)
-This challenge is to build your own version of the Unix command line tool wc!
+This challenge is to build your own version of the Unix command line tool wc: 
 [Instructions](https://codingchallenges.fyi/challenges/challenge-wc)
 
+This tool counts the number of lines, words, bytes and characters in given files or from standard input.
+
+I have not worked with C++ in years, so this was a nice opportunity to refresh my skills.
 
 ## Build executable
 
@@ -12,16 +15,26 @@ Running one following commands in a terminal, will show a help screen on how to 
 - Linux
 ``` ./build.sh ```
 - Windows
-``` ./build.bat ```
+``` ./build.bat ``` (not tested)
 
 ## Usage
 
-```ccwc [OPTIONS]... [FILES]...```
+```
+Usage: ccwc [OPTION]... [FILES]...
 
-ccwc can take multiple options and multiple files.
+Count characters, words, and lines in given files.
 
+Options:
+        -h              Show this help message
+        -c              Count bytes
+        -l              Count lines
+        -w              Count words
+        -m              Count characters
 
-
+If no FILES specified, read standard input.
+e.g. ls | ccwc
+to quit stdin input, type :q
+```
 
 ## Things learned
 
@@ -65,6 +78,11 @@ void openFile(std::string& filename) {
 };
 
 ```
+
+### standard input
+- write a temporary file to the filesystem's temporary directory from stdin
+- clean up after running
+
 
 ### build process
 - Convert generated MAKEFILE to CMakeLists.txt

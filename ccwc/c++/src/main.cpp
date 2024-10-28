@@ -21,11 +21,10 @@ int main(int argc, char *argv[])
 
     std::ostringstream output;
 
-    if (files.size() == 0)
+    if (arguments::isNoFiles)
     {
-        // TODO: read from stdin
-        arguments::showUsage();
-        return 1;
+        std::string tempFilename = file::readFromStdin();
+        files.push_back(tempFilename);
     }
 
     for (const auto &file : files)
@@ -115,6 +114,7 @@ int main(int argc, char *argv[])
     }
     
     std::cout << output.str();
+    file::cleanUpTempFile();
 
     return 0;
 }

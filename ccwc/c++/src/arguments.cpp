@@ -16,7 +16,8 @@ namespace arguments
         COUNT_BYTES,
         COUNT_LINES,
         COUNT_WORDS,
-        COUNT_CHARS
+        COUNT_CHARS,
+        SHOW_USAGE
     };
 
     const std::unordered_map<std::string, Option> option_map = {
@@ -27,7 +28,9 @@ namespace arguments
         {"-w", COUNT_WORDS},
         {"--words", COUNT_WORDS},
         {"-m", COUNT_CHARS},
-        {"--chars", COUNT_CHARS}
+        {"--chars", COUNT_CHARS},
+        {"-h", SHOW_USAGE},
+        {"--help", SHOW_USAGE}
     };
 
     bool isCountBytes = false;
@@ -35,17 +38,21 @@ namespace arguments
     bool isCountWords = false;
     bool isCountchars = false;
     bool isNoOptions = false;
+    bool isNoFiles = false;
 
     std::string usage = "Usage: ccwc [OPTION]... [FILES]...\n"
                     "Count characters, words, and lines in given files.\n"
                     "\n"
                     "Options:\n"
+                    "\t-h\t\tShow this help message\n"
                     "\t-c\t\tCount bytes\n"
                     "\t-l\t\tCount lines\n"
                     "\t-w\t\tCount words\n"
                     "\t-m\t\tCount characters\n"
                     "\n"
-                    "With no FILE, or when FILE is -, read standard input.\n";
+                    "If no FILES specified, read standard input.\n"
+                    "e.g. ls | ccwc\n"
+                    "to quit stdin input, type :q";
 
     std::string filename;
 
@@ -57,6 +64,8 @@ namespace arguments
     void parseArguments(int argc, char *argv[], std::vector<std::string> &files)
     {
         int optionCount = 0;
+        int fileCount = 0;
+
         for (int i = 1; i < argc; ++i)
         {
             auto it = option_map.find(argv[i]);
@@ -80,11 +89,16 @@ namespace arguments
                         isCountchars = true;
                         optionCount++;
                         break;
+                    case SHOW_USAGE:
+                        showUsage();
+                        exit(EXIT_SUCCESS);
+                        break;
                 }
             }
             else if (argv[i][0] != '-')
             {
                 files.push_back(argv[i]);
+                fileCount++;
             }
             else
             {
@@ -99,9 +113,7 @@ namespace arguments
 
         if (files.empty())
         {
-            std::cerr << "No files provided.\n" << usage;
-            exit(EXIT_FAILURE);
+            isNoFiles = true;
         }
     }
-    
 }

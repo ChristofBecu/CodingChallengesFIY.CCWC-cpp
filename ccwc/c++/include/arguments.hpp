@@ -10,6 +10,7 @@ namespace arguments {
     extern bool isCountWords;
     extern bool isCountchars;
     extern bool isNoOptions;
+    extern bool isNoFiles;
 
     extern std::string usage;
     extern std::string filename;
